@@ -1,0 +1,2 @@
+What is the capital of France?
+How does the GaiaNet API work?
