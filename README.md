@@ -63,6 +63,26 @@ When you run the script, it will generate the following files:
 
 If you want to change the API endpoint and model, you need to rename `sample.env` file to `.env` then update `API_URL` and `MODEL` to yours.
 
+### How to Run background?
+Install `Screen` on Ubuntu:
+```
+apt install screen
+```
+
+Start the bot in background mode with a name (replace `gaianetbot`):
+```
+screen -S gaianetbot
+```
+
+Then run the bot:  
+```
+python main.py
+```
+
+To return back your terminal, press `Ctrl + A` then `D` and finally hit Enter:
+```
+screen -r gaianetbot
+```
 ### Contributing
 
 Feel free to submit issues or pull requests if you find any bugs or have suggestions for improvements.
