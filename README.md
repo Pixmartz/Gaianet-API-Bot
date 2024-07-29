@@ -27,81 +27,41 @@ The Gaianet API Bot is a tool for automating queries to the GaiaNet AI API. User
 
 ### Usage
 
-1. Add your questions to `questions.txt`, one question per line.
+1. Add your initial question to `questions.txt`. Ensure it is a single line. This question will be used to start the loop, and subsequent questions will be generated based on the responses. 
 
 2. Run the script:
    ```sh
    python main.py
    ```
 
-3. The responses will be saved in separate text files named `response_1.txt`, `response_2.txt`, etc.
+3. Files Generated
+    - The responses and generated questions will be saved in separate text files within a timestamped folder under the `logs` directory.
+    - Response files are named `response_1.txt`, `response_2.txt`, etc.
+    - Generated question files are named `generated_question_1.txt`, `generated_question_2.txt`, etc.
+    - All these files will be organized into a folder named with the current timestamp (YMDHIS) inside the `logs` directory.
+
+4. This action has a delay time between 1000 and 2000 seconds. You can adjust it according to your preference. 
 
 ### Example
 
 Here is an example `questions.txt` file:
 ```
-What is the capital of France?
-How does the GaiaNet API work?
+What can I cook with chicken?
 ```
 
 When you run the script, it will generate the following files:
 - `response_1.txt` with the content:
   ```
-  The capital of France is Paris.
+  Chicken Enchilada Bake: Cut chicken breasts into bite-sized pieces and set aside...
   ```
-- `response_2.txt` with the content:
+- `generated_question_1.txt` with the content:
   ```
-  The GaiaNet API is a robust and scalable interface that allows...
+  In a skillet or in a casserole dish, mix the chicken with canned enchilada ...
   ```
 
 ### Changing the API Endpoint and Model
 
-If you want to change the API endpoint and model, you need to update the `ask_question` function in the `main.py` script. 
-
-#### To use the new API endpoint:
-```python
-url = "https://chemistry.us.gaianet.network/v1/chat/completions"
-```
-
-#### To use the new model:
-```python
-payload = {
-    "messages": [
-        {"role": "system", "content": "You are a helpful, respectful, and honest assistant. Always answer accurately, while being safe."},
-        {"role": "user", "content": question}
-    ],
-    "model": "Meta-Llama-3-8B-Instruct-Q5_K_M"
-}
-```
-
-Here is how the updated `ask_question` function should look:
-```python
-def ask_question(question):
-    url = "https://chemistry.us.gaianet.network/v1/chat/completions"
-    payload = {
-        "messages": [
-            {"role": "system", "content": "You are a helpful, respectful, and honest assistant. Always answer accurately, while being safe."},
-            {"role": "user", "content": question}
-        ],
-        "model": "Meta-Llama-3-8B-Instruct-Q5_K_M"
-    }
-    headers = {
-        "accept": "application/json",
-        "Content-Type": "application/json"
-    }
-    
-    try:
-        response = requests.post(url, json=payload, headers=headers)
-        response.raise_for_status()
-        return response.json()
-    except requests.exceptions.HTTPError as http_err:
-        print(f"HTTP error occurred: {http_err}")
-        print(f"Response content: {response.content}")
-    except Exception as err:
-        print(f"Other error occurred: {err}")
-    
-    return None
-```
+If you want to change the API endpoint and model, you need to rename `sample.env` file to `.env` then update `API_URL` and `MODEL` to yours.
 
 ### Contributing
 
