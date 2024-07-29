@@ -3,15 +3,23 @@ import time
 import random
 import os
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Get API URL and model from environment variables
+API_URL = os.getenv("API_URL")
+MODEL = os.getenv("MODEL")
 
 def ask_question(question):
-    url = "https://0x6ca8206a52e7edfb9c34eec443910ecd25b9f8b9.us.gaianet.network/v1/chat/completions"
+    url = API_URL
     payload = {
         "messages": [
             {"role": "system", "content": "You are a helpful, respectful, and honest assistant. Always answer accurately, while being safe."},
             {"role": "user", "content": question}
         ],
-        "model": "stablelm-2-zephyr-1_6b-Q5_K_M"
+        "model": MODEL
     }
     headers = {
         "accept": "application/json",
